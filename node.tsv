@@ -1,0 +1,60 @@
+id	parentId	type	text	options	target	signal
+
+START	null	start	Good evening. Before we close the day, let’s take a few minutes to reflect.			
+
+A1_OPEN	START	question	How did today feel overall?	Smooth and productive|Mixed with ups and downs|Mostly challenging|Draining and frustrating		
+
+A1_D1	A1_OPEN	decision		answer=Smooth and productive|Mixed with ups and downs:A1_Q_HIGH;answer=Mostly challenging|Draining and frustrating:A1_Q_LOW		
+
+A1_Q_HIGH	A1_D1	question	When things went well, what made the difference?	My preparation|Decisions I made in the moment|Support from others|Things just worked out		axis1:internal
+A1_Q_LOW	A1_D1	question	When things didn’t go as planned, what was your first instinct?	Focus on what I could still control|Wait for direction or help|Feel stuck and unsure what to do|Think the situation was out of my hands		axis1:external
+
+A1_D2	A1_Q_HIGH	decision		answer=My preparation|Decisions I made in the moment:A1_R_INT;answer=Support from others|Things just worked out:A1_R_MIX		
+A1_D3	A1_Q_LOW	decision		answer=Focus on what I could still control:A1_R_INT;answer=Wait for direction or help|Feel stuck and unsure what to do|Think the situation was out of my hands:A1_R_EXT		
+
+A1_R_INT	A1_D2	reflection	You noticed where your actions shaped the day. Even small decisions reflect agency.			axis1:internal
+A1_R_MIX	A1_D2	reflection	Some things worked because of you, some because of others. It’s worth noticing where your influence still showed up.			axis1:neutral
+A1_R_EXT	A1_D3	reflection	Today may have felt driven by circumstances. Still, within that, you made choices—those are worth noticing.			axis1:external
+
+BRIDGE_1_2	A1_R_INT	bridge	Let’s shift focus—from what you controlled to what you contributed.		A2_OPEN	
+BRIDGE_1_2B	A1_R_MIX	bridge	Let’s shift focus—from what you controlled to what you contributed.		A2_OPEN	
+BRIDGE_1_2C	A1_R_EXT	bridge	Let’s shift focus—from what you controlled to what you contributed.		A2_OPEN	
+
+A2_OPEN	null	question	Think of one interaction today. What stands out most?	I stepped in to help someone|I focused on completing my work|I needed support from others|I felt my effort wasn’t recognized		
+
+A2_D1	A2_OPEN	decision		answer=I stepped in to help someone:A2_Q_HIGH;answer=I focused on completing my work|I needed support from others|I felt my effort wasn’t recognized:A2_Q_LOW		
+
+A2_Q_HIGH	A2_D1	question	What best describes why you helped?	I genuinely wanted to support|It mattered for the team outcome|I expected appreciation|It’s something I usually do		axis2:contribution
+A2_Q_LOW	A2_D1	question	What were you most focused on in that moment?	My responsibilities|Getting the help I needed|Whether I was being valued|Others not doing their part		axis2:entitlement
+
+A2_D2	A2_Q_HIGH	decision		answer=I genuinely wanted to support|It mattered for the team outcome:A2_R_CONTRIB;answer=I expected appreciation|It’s something I usually do:A2_R_MIX		
+A2_D3	A2_Q_LOW	decision		answer=My responsibilities:A2_R_NEUTRAL;answer=Getting the help I needed|Whether I was being valued|Others not doing their part:A2_R_ENT		
+
+A2_R_CONTRIB	A2_D2	reflection	You contributed beyond what was required. That kind of effort strengthens teams over time.			axis2:contribution
+A2_R_MIX	A2_D2	reflection	You contributed, though part of you was also looking for something in return. That balance is worth noticing.			axis2:neutral
+A2_R_NEUTRAL	A2_D3	reflection	You stayed focused on your role. Solid execution—but sometimes impact grows just beyond that boundary.			axis2:neutral
+A2_R_ENT	A2_D3	reflection	Your attention was on what wasn’t coming your way. That’s understandable—yet it also raises the question: what could you offer anyway?			axis2:entitlement
+
+BRIDGE_2_3	A2_R_CONTRIB	bridge	Now let’s widen the lens a bit further.		A3_OPEN	
+BRIDGE_2_3B	A2_R_MIX	bridge	Now let’s widen the lens a bit further.		A3_OPEN	
+BRIDGE_2_3C	A2_R_NEUTRAL	bridge	Now let’s widen the lens a bit further.		A3_OPEN	
+BRIDGE_2_3D	A2_R_ENT	bridge	Now let’s widen the lens a bit further.		A3_OPEN	
+
+A3_OPEN	null	question	When you reflect on today’s most important moment, who comes to mind first?	Just myself|My immediate team|A specific colleague|The customer or end user		
+
+A3_D1	A3_OPEN	decision		answer=Just myself:A3_Q_LOW;answer=My immediate team|A specific colleague|The customer or end user:A3_Q_HIGH		
+
+A3_Q_LOW	A3_D1	question	What was your primary concern in that moment?	My workload|My stress level|My performance|My outcome		axis3:self
+A3_Q_HIGH	A3_D1	question	What mattered most in that moment?	The team’s success|Supporting someone|Delivering value to the user|The overall outcome		axis3:other
+
+A3_D2	A3_Q_LOW	decision		answer=My workload|My stress level|My performance|My outcome:A3_R_SELF		
+A3_D3	A3_Q_HIGH	decision		answer=The team’s success|Supporting someone|Delivering value to the user|The overall outcome:A3_R_OTHER		
+
+A3_R_SELF	A3_D2	reflection	Your focus stayed close to your own experience. That’s natural—though widening perspective can often reduce pressure.			axis3:self
+A3_R_OTHER	A3_D3	reflection	You naturally looked beyond yourself. That broader view often brings both clarity and meaning.			axis3:other
+
+SUMMARY	A3_R_SELF	summary	Today you leaned {axis1.dominant} in how you handled control, {axis2.dominant} in contribution, and {axis3.dominant} in perspective. Consider one small shift for tomorrow.			
+SUMMARY2	A3_R_OTHER	summary	Today you leaned {axis1.dominant} in how you handled control, {axis2.dominant} in contribution, and {axis3.dominant} in perspective. Carry this forward into tomorrow.			
+
+END	SUMMARY	end	That’s a thoughtful close to the day. See you tomorrow.			
+END2	SUMMARY2	end	That’s a thoughtful close to the day. See you tomorrow.			
